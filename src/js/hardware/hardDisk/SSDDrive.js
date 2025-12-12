@@ -7,12 +7,4 @@ class SSD extends HardwareComponent {
   getCapacity() {
     return this.capacity;
   }
-
-  getName() {
-    return this.name;
-  }
-
-  getType() {
-    return this.type;
-  }
 }

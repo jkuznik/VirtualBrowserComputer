@@ -7,12 +7,4 @@ class HDDDrive extends HardwareAbstractComponent {
   getStorage() {
     return this.storage;
   }
-
-  getName() {
-    return this.name;
-  }
-
-  getType() {
-    return this.type;
-  }
 }

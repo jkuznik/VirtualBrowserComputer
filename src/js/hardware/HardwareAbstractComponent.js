@@ -9,10 +9,10 @@ class HardwareAbstractComponent {
   }
 
   getName() {
-    throw new Error("getName() must be implemented by subclass");
+    return this.name;
   }
 
   getType() {
-    throw new Error("getType() must be implemented by subclass");
+    return this.type;
   }
 }
