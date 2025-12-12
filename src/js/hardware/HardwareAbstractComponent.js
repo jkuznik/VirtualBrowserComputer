@@ -1,11 +1,11 @@
 class HardwareAbstractComponent {
-  constructor(name, manufacturer) {
+  constructor(name, type) {
     if (new.target === HardwareAbstractComponent) {
       throw new Error("HardwareAbstractComponent is abstract and cannot be instantiated directly");
     }
 
     this.name = name;
-    this.manufacturer = manufacturer;
+    this.type = type;
   }
 
   getName() {
