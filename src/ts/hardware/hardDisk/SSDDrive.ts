@@ -1,4 +1,4 @@
-class SSD extends HardwareAbstractComponent {
+export class SSD extends HardwareAbstractComponent {
 
   static readonly TYPE: string = 'SSD Drive';
 

@@ -1,4 +1,6 @@
-class HDDDrive extends HardwareAbstractComponent {
+import {HardwareAbstractComponent} from "../HardwareAbstractComponent";
+
+export class HDDDrive extends HardwareAbstractComponent {
 
   static readonly TYPE: string = 'HDD Drive';
 

@@ -1,4 +1,6 @@
-class Mouse extends HardwareAbstractComponent {
+import {HardwareAbstractComponent} from "../HardwareAbstractComponent";
+
+export class Mouse extends HardwareAbstractComponent {
 
   static readonly TYPE: string = 'Mouse';
 

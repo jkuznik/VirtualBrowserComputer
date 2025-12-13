@@ -1,4 +1,4 @@
-abstract class HardwareAbstractComponent {
+export abstract class HardwareAbstractComponent {
 
   protected name: string;
   protected type: string;
