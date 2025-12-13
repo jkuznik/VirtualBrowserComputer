@@ -4,6 +4,19 @@ body {
   font-family: Arial, sans-serif;
 }
 
+.center-element {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.right-element {
+  display: flex;
+  justify-content: right;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
 .buttons-container {
   margin-top: 50px;
   display: flex;

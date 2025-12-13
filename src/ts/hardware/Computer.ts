@@ -1,5 +1,6 @@
 import {HDDDrive} from "./hardDisk/HDDDrive";
 import {Mouse} from "./controllers/Mouse";
+import {HardwareAbstractComponent} from "./HardwareAbstractComponent";
 
 export class Computer {
 
@@ -9,10 +10,10 @@ export class Computer {
         this.components.push(component);
     }
 
-    removeComponentByName(component: HardwareAbstractComponent) {
-        this.components.filter(
+    removeComponent(component: HardwareAbstractComponent) {
+        this.components = this.components.filter(
             existedComponent => {
-                existedComponent.getName() === component.getName();
+                return existedComponent.getName() !== component.getName();
             }
         )
     }

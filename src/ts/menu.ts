@@ -1,5 +1,7 @@
 import {Computer} from "./hardware/Computer";
 
+import {listComponents} from "./hardware/hardwareMenu";
+
 export interface MenuButton {
   label: string;
   onClick: () => void;
@@ -7,33 +9,9 @@ export interface MenuButton {
 
 export function loadMainMenu(computer: Computer): void {
   refreshButtonVisibility([
-    { label: "Hardware", onClick: () => loadHardwareMenu(computer) },
+    { label: "Hardware", onClick: () => listComponents(computer) },
     { label: "Software", onClick: () => alert("Software Menu is not implemented yet") }
   ]);
-}
-
-function loadHardwareMenu(computer: Computer): void {
-  refreshButtonVisibility([
-    { label: "List Components", onClick: () => listComponents(computer) },
-    { label: "Component Details", onClick: () => alert("Details — TODO") },
-    { label: "Add Component", onClick: () => alert("Add — TODO") },
-    { label: "Remove Component", onClick: () => alert("Remove — TODO") },
-    { label: "Back", onClick: () =>  loadMainMenu(computer) }
-  ]);
-}
-
-function listComponents(computer: Computer) {
-  const app = document.getElementById('app');
-  const componentsDiv = document.createElement("div");
-  computer.getComponents().forEach(component => {
-
-        const element = document.createElement("li");
-        element.textContent = component.getName();
-
-        componentsDiv.appendChild(element);
-    })
-
-  app?.appendChild(componentsDiv)
 }
 
 function refreshButtonVisibility(buttons: MenuButton[]): void {
