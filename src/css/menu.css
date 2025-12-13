@@ -40,23 +40,3 @@ button {
 button:hover {
   background-color: #555;
 }
-
-.components-grid {
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  row-gap: 12px;
-  column-gap: 12px;
-  align-items: center;
-}
-
-.component-name {
-  font-size: 16px;
-}
-
-button.component-actions {
-  width: auto;
-  padding: 6px 10px;
-  font-size: 14px;
-}
-
