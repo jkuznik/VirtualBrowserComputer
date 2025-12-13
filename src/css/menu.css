@@ -4,6 +4,19 @@ body {
   font-family: Arial, sans-serif;
 }
 
+.center-element {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.right-element {
+  display: flex;
+  justify-content: right;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
 .buttons-container {
   margin-top: 50px;
   display: flex;
@@ -27,3 +40,23 @@ button {
 button:hover {
   background-color: #555;
 }
+
+.components-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  row-gap: 12px;
+  column-gap: 12px;
+  align-items: center;
+}
+
+.component-name {
+  font-size: 16px;
+}
+
+button.component-actions {
+  width: auto;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
