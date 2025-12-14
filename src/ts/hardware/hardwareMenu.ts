@@ -66,7 +66,7 @@ export function listComponents(computer: Computer) {
         if (confirm('Add hardcoded HDD Drive?')) {
             computer.addComponent(HDDDrive.addComponent()).then(() => {
                 listComponents(computer);
-            });
+            }).catch(() => {}); // do nothing in case of promise rejected
         }
     })
 

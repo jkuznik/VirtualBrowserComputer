@@ -79,7 +79,7 @@ export class AddComponentDialog {
             cancelButton.textContent = 'Cancel';
             cancelButton.addEventListener('click', (event) => {
                 removeModal()
-                resolve(null);
+                reject();
             })
 
             form.appendChild(submitButton);
