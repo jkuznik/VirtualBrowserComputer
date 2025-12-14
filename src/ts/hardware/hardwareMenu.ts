@@ -1,7 +1,7 @@
 import {Computer} from "./Computer";
-import {HardwareAbstractComponent} from "./HardwareAbstractComponent";
+import {HardwareAbstractComponent} from "./components/HardwareAbstractComponent";
 import {loadMainMenu} from "../menu";
-import {HDDDrive} from "./hardDisk/HDDDrive";
+import {HDDDrive} from "./components/hardDisk/HDDDrive";
 
 export function listComponents(computer: Computer) {
     const app = document.getElementById('app');
@@ -64,8 +64,9 @@ export function listComponents(computer: Computer) {
     addComponentButton.textContent = "Add Component";
     addComponentButton.addEventListener("click", (event) => {
         if (confirm('Add hardcoded HDD Drive?')) {
-            computer.addComponent(new HDDDrive('Hardcoded', 100))
-            listComponents(computer);
+            computer.addComponent(HDDDrive.addComponent()).then(() => {
+                listComponents(computer);
+            });
         }
     })
 

@@ -10,12 +10,12 @@ export abstract class HardwareAbstractComponent {
     this.type = type;
   }
 
-  getId(): number {
-    return this.id;
+  getInfo(): string {
+    throw new Error("Each component have to override this method");
   }
 
-  setId(id: number): void {
-    this.id = id;
+  addComponent(): HardwareAbstractComponent {
+    throw new Error("Each component have to override this method");
   }
 
   getName(): string {
@@ -26,7 +26,11 @@ export abstract class HardwareAbstractComponent {
     return this.type;
   }
 
-  getInfo(): string {
-    throw new Error("Each component have to override this method");
+  getId(): number {
+    return this.id;
+  }
+
+  setId(id: number): void {
+    this.id = id;
   }
 }
