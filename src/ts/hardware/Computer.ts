@@ -8,13 +8,15 @@ export class Computer {
     private components: HardwareAbstractComponent[] = [];
 
     addComponent(component: HardwareAbstractComponent) {
+        const actualId = this.components.length + 1;
+        component.setId(actualId);
         this.components.push(component);
     }
 
     removeComponent(component: HardwareAbstractComponent) {
         this.components = this.components.filter(
             existedComponent => {
-                return existedComponent.getName() !== component.getName();
+                return existedComponent.getId() !== component.getId();
             }
         )
     }

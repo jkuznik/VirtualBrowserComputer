@@ -23,6 +23,7 @@ export class HDDDrive extends HardwareAbstractComponent {
   getInfo(): string {
     return "Name: " + this.getName()
         + "\nType: " + this.getType()
-        + "\nCapacity: " + this.getCapacity();
+        + "\nCapacity: " + this.getCapacity()
+        + "\nActual Storage: " + this.getStorage();
   }
 }
