@@ -1,11 +1,9 @@
 import {HardwareAbstractComponent} from "../HardwareAbstractComponent";
+import {ComponentType} from "../ComponentType";
 
 export class Keyboard extends HardwareAbstractComponent {
-
-    static readonly TYPE = "Keyboard";
-
     constructor(name: string) {
-        super(name, Keyboard.TYPE);
+        super(name, ComponentType.Keyboard);
     }
 
     getInfo(): string {

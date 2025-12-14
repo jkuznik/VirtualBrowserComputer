@@ -1,7 +1,10 @@
 import {Computer} from "./Computer";
-import {HardwareAbstractComponent} from "./components/HardwareAbstractComponent";
 import {loadMainMenu} from "../menu";
 import {HDDDrive} from "./components/hardDisk/HDDDrive";
+import {ComponentTypeSelectDialog} from "./htmlElement/ComponentTypeSelectDialog";
+import {ComponentType} from "./components/ComponentType";
+import {SSDDrive} from "./components/hardDisk/SSDDrive";
+import {Mouse} from "./components/controllers/Mouse";
 
 export function listComponents(computer: Computer) {
     const app = document.getElementById('app');
@@ -63,11 +66,29 @@ export function listComponents(computer: Computer) {
     const addComponentButton = document.createElement("button");
     addComponentButton.textContent = "Add Component";
     addComponentButton.addEventListener("click", (event) => {
-        if (confirm('Add hardcoded HDD Drive?')) {
-            computer.addComponent(HDDDrive.addComponent()).then(() => {
-                listComponents(computer);
-            }).catch(() => {}); // do nothing in case of promise rejected
-        }
+        new ComponentTypeSelectDialog().open().then(result => {
+            switch (result) {
+                case ComponentType.HDDDrive: {
+                    computer.addComponent(HDDDrive.addComponent()).then(() => {
+                        listComponents(computer);
+                    }).catch(() => {}); // do nothing in case of promise rejected
+                    break;
+                }
+                case ComponentType.SSDDrive: {
+                    computer.addComponent(SSDDrive.addComponent()).then(() => {
+                        listComponents(computer);
+                    }).catch(() => {});
+                    break;
+                }
+                case ComponentType.Mouse: {
+                    computer.addComponent(Mouse.addComponent()).then(() => {
+                        listComponents(computer);
+                    }).catch(() => {});
+                    break;
+                }
+            }
+        })
+
     })
 
     const endMenu = document.createElement("div");
