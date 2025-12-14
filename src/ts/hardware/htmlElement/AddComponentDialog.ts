@@ -16,16 +16,24 @@ export class AddComponentDialog {
     }
 
     public open(): Promise<Record<string, any> | null> {
+
+        let removeModal: () => void;
+
         return new Promise<any>((resolve, reject) => {
+
             const dialogContainer = document.createElement('div');
             dialogContainer.classList.add('add-component-dialog');
 
             const formDialog = document.createElement('div');
             formDialog.classList.add('modal-content');
-            formDialog.innerHTML = `<h2>${this.title}</h2>`;
+
+            const titleElement = document.createElement('h2');
+            titleElement.textContent = this.title;
+            formDialog.appendChild(titleElement);
 
             const form = document.createElement('form');
             form.className = 'add-component-form';
+
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
 
@@ -51,10 +59,13 @@ export class AddComponentDialog {
             })
 
             this.fields.forEach(field => {
+                const fieldGroup = document.createElement('div');
+                fieldGroup.classList.add('form-field-group');
 
                 const label = document.createElement('label');
                 label.htmlFor = field.key;
                 label.textContent = field.label + ':';
+
                 const input = document.createElement('input');
 
                 input.type = field.type === 'number' ? 'number' : 'text';
@@ -63,10 +74,14 @@ export class AddComponentDialog {
                 input.value = field.defaultValue !== undefined ? String(field.defaultValue) : '';
                 input.required = true;
 
-                form.appendChild(label);
-                form.appendChild(input);
-                form.appendChild(document.createElement('br'));
+                fieldGroup.appendChild(label);
+                fieldGroup.appendChild(input);
+
+                form.appendChild(fieldGroup);
             });
+
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.classList.add('modal-buttons-container');
 
             const submitButton = document.createElement('button');
             submitButton.type = 'submit';
@@ -77,18 +92,26 @@ export class AddComponentDialog {
             cancelButton.type = 'button';
             cancelButton.id = 'cancel-component';
             cancelButton.textContent = 'Cancel';
+
             cancelButton.addEventListener('click', (event) => {
-                removeModal()
-                reject();
+                removeModal();
+                resolve(null);
             })
 
-            form.appendChild(submitButton);
-            form.appendChild(cancelButton);
+            buttonsContainer.appendChild(submitButton);
+            buttonsContainer.appendChild(cancelButton);
+
+            form.appendChild(buttonsContainer);
             formDialog.appendChild(form);
             dialogContainer.appendChild(formDialog);
 
             document.body.appendChild(dialogContainer);
-            const removeModal = () => { document.body.removeChild(dialogContainer); };
+
+            removeModal = () => {
+                if (document.body.contains(dialogContainer)) {
+                    document.body.removeChild(dialogContainer);
+                }
+            };
         })
     }
 }

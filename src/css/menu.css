@@ -118,10 +118,9 @@ button:hover {
   margin-right: 10px;
   padding: 10px 15px;
   font-size: 16px;
-  /* Dziedziczą style z button w Twoim globalnym CSS, co jest OK */
 }
 
-.component-select-dialog {
+.add-component-dialog, .component-select-dialog {
   position: fixed;
   top: 0;
   left: 0;
@@ -134,7 +133,6 @@ button:hover {
   z-index: 1000;
 }
 
-/* Modal Content (dziedziczy .modal-content, ale wymaga mniejszego widoku) */
 .select-modal-content {
   background-color: #2a2a2a;
   padding: 30px;
