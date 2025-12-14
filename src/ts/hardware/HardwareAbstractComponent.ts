@@ -15,4 +15,8 @@ export abstract class HardwareAbstractComponent {
   getType(): string {
     return this.type;
   }
+
+  getInfo(): string {
+    throw new Error("Each component have to override this method");
+  }
 }

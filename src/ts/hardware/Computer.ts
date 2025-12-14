@@ -1,6 +1,7 @@
 import {HDDDrive} from "./hardDisk/HDDDrive";
 import {Mouse} from "./controllers/Mouse";
 import {HardwareAbstractComponent} from "./HardwareAbstractComponent";
+import {Keyboard} from "./controllers/Keyboard";
 
 export class Computer {
 
@@ -28,9 +29,11 @@ export function initialComputer(): Computer {
 
     const hdd = new HDDDrive("Seagate Barracuda", 500);
     const mouse = new Mouse("LogiTech", 8000);
+    const keyboard = new Keyboard("LogiTech");
 
     computer.addComponent(hdd);
     computer.addComponent(mouse);
+    computer.addComponent(keyboard);
 
     return computer;
 }

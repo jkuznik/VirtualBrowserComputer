@@ -14,4 +14,10 @@ export class Mouse extends HardwareAbstractComponent {
   getDpi() {
     return this.dpi;
   }
+
+  getInfo(): string {
+    return "Name: " + this.getName()
+        + "\nType: " + this.getType()
+        + "\nDPI: " + this.getDpi();
+  }
 }
