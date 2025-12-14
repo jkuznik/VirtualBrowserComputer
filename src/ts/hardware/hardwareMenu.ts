@@ -1,7 +1,10 @@
 import {Computer} from "./Computer";
-import {HardwareAbstractComponent} from "./HardwareAbstractComponent";
 import {loadMainMenu} from "../menu";
-import {HDDDrive} from "./hardDisk/HDDDrive";
+import {HDDDrive} from "./components/hardDisk/HDDDrive";
+import {ComponentTypeSelectDialog} from "./htmlElement/ComponentTypeSelectDialog";
+import {ComponentType} from "./components/ComponentType";
+import {SSDDrive} from "./components/hardDisk/SSDDrive";
+import {Mouse} from "./components/controllers/Mouse";
 
 export function listComponents(computer: Computer) {
     const app = document.getElementById('app');
@@ -16,16 +19,22 @@ export function listComponents(computer: Computer) {
     grid.classList.add('components-grid');
 
     computer.getComponents().forEach(component => {
-        const name = document.createElement("div");
-        name.classList.add('component-name');
+        const singleComponentRow = document.createElement("div");
+        singleComponentRow.classList.add('component-row');
+
+        const name = document.createElement("span");
+        name.classList.add('grid-text');
         name.textContent = component.getName();
+
+        const type = document.createElement("span");
+        type.classList.add('grid-text');
+        type.textContent = component.getType();
 
         const showDetailsButton = document.createElement("button");
         showDetailsButton.classList.add('component-actions');
         showDetailsButton.textContent = "Details";
         showDetailsButton.addEventListener("click", (event) => {
-            alert('Name; ' + component.getName() +
-                'Type: ' + component.getType() );
+            alert(component.getInfo());
         })
 
         const removeButton = document.createElement("button");
@@ -36,9 +45,12 @@ export function listComponents(computer: Computer) {
             listComponents(computer);
         })
 
-        grid.appendChild(name);
-        grid.appendChild(showDetailsButton);
-        grid.appendChild(removeButton);
+        singleComponentRow.appendChild(name);
+        singleComponentRow.appendChild(type);
+        singleComponentRow.appendChild(showDetailsButton);
+        singleComponentRow.appendChild(removeButton);
+
+        grid.appendChild(singleComponentRow);
     })
 
     const backToMainMenuButton = document.createElement("button");
@@ -54,10 +66,29 @@ export function listComponents(computer: Computer) {
     const addComponentButton = document.createElement("button");
     addComponentButton.textContent = "Add Component";
     addComponentButton.addEventListener("click", (event) => {
-        if (confirm('Add hardcoded HDD Drive?')) {
-            computer.addComponent(new HDDDrive('Hardcoded', 100))
-            listComponents(computer);
-        }
+        new ComponentTypeSelectDialog().open().then(result => {
+            switch (result) {
+                case ComponentType.HDDDrive: {
+                    computer.addComponent(HDDDrive.addComponent()).then(() => {
+                        listComponents(computer);
+                    }).catch(() => {}); // do nothing in case of promise rejected
+                    break;
+                }
+                case ComponentType.SSDDrive: {
+                    computer.addComponent(SSDDrive.addComponent()).then(() => {
+                        listComponents(computer);
+                    }).catch(() => {});
+                    break;
+                }
+                case ComponentType.Mouse: {
+                    computer.addComponent(Mouse.addComponent()).then(() => {
+                        listComponents(computer);
+                    }).catch(() => {});
+                    break;
+                }
+            }
+        })
+
     })
 
     const endMenu = document.createElement("div");
