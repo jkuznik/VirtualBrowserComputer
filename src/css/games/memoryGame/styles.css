@@ -1,0 +1,67 @@
+.memory-board {
+    display: grid;
+    /* 4 kolumny dla 16 kart (4x4) */
+    grid-template-columns: repeat(4, 100px);
+    grid-gap: 10px;
+    padding: 20px;
+    justify-content: center;
+    /* Dostosuj tło do Twojego motywu */
+    background-color: #3e3e3e;
+    border-radius: 8px;
+}
+
+/* Pojedyncza KARTA */
+.memory-card {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d; /* Umożliwia obracanie 3D */
+    transition: transform 0.6s; /* Płynna animacja odwracania */
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Stan ODWRÓCONY */
+.memory-card.flipped {
+    transform: rotateY(180deg);
+}
+
+/* Stan DOPASOWANY */
+.memory-card.matched {
+    /* Opcjonalny efekt wizualny, gdy karta jest dopasowana */
+    opacity: 0.5;
+    pointer-events: none; /* Nie można klikać dopasowanych kart */
+}
+
+/* Awers i Rewers Karty */
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Ukryj tylną stronę podczas obracania */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Rewers (przód karty) */
+.card-front {
+    background-color: #a0a0a0; /* Szary rewers */
+    color: white;
+}
+
+/* Awers (tył karty - widoczny po odwróceniu) */
+.card-back {
+    background-color: #f7f7f7; /* Jasny awers */
+    color: #333;
+    transform: rotateY(180deg); /* Domyślnie obrócony o 180 stopni */
+}
+
+/* Dostosowanie dla lepszego wyglądu ikon */
+.card-back {
+    font-size: 50px;
+}

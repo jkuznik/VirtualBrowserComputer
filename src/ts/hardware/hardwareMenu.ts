@@ -1,4 +1,4 @@
-import {Computer} from "./Computer";
+import {Computer} from "../Computer";
 import {loadMainMenu} from "../menu";
 import {HDDDrive} from "./components/hardDisk/HDDDrive";
 import {ComponentTypeSelectDialog} from "./htmlElement/ComponentTypeSelectDialog";
@@ -8,7 +8,7 @@ import {Mouse} from "./components/controllers/Mouse";
 import {Keyboard} from "./components/controllers/Keyboard";
 import {Monitor} from "./components/monitor/Monitor";
 
-export function listComponents(computer: Computer) {
+export function loadHardwareMenu(computer: Computer) {
     const app = document.getElementById('app');
 
     if (!app) {
@@ -32,6 +32,28 @@ export function listComponents(computer: Computer) {
         type.classList.add('grid-text');
         type.textContent = component.getType();
 
+        const inUse = document.createElement("input");
+        inUse.classList.add('large-checkbox');
+        inUse.type = "checkbox";
+        inUse.name = `inUse ${component.getName()}`;
+        inUse.checked = component.isActive();
+        inUse.disabled = true;
+
+        const actionsContainer = document.createElement("div");
+        actionsContainer.classList.add('component-actions-container');
+
+        component.getActions().forEach(action => {
+            const actionButton = document.createElement("button");
+            actionButton.classList.add('component-actions');
+            actionButton.textContent = action.name.replace(/_/g, ' ');
+
+            // Przypisanie akcji z klasy komponentu
+            actionButton.addEventListener("click", (event) => {
+                action.action();
+            });
+            actionsContainer.appendChild(actionButton);
+        });
+
         const showDetailsButton = document.createElement("button");
         showDetailsButton.classList.add('component-actions');
         showDetailsButton.textContent = "Details";
@@ -44,11 +66,13 @@ export function listComponents(computer: Computer) {
         removeButton.textContent = "Remove";
         removeButton.addEventListener("click", (event) => {
             computer.removeComponent(component);
-            listComponents(computer);
+            loadHardwareMenu(computer);
         })
 
         singleComponentRow.appendChild(name);
         singleComponentRow.appendChild(type);
+        singleComponentRow.appendChild(inUse);
+        singleComponentRow.appendChild(actionsContainer);
         singleComponentRow.appendChild(showDetailsButton);
         singleComponentRow.appendChild(removeButton);
 
@@ -71,32 +95,32 @@ export function listComponents(computer: Computer) {
         new ComponentTypeSelectDialog().open().then(result => {
             switch (result) {
                 case ComponentType.Monitor: {
-                    computer.addComponent(Monitor.addComponent()).then(() => {
-                        listComponents(computer);
+                    computer.addComponent(Monitor.addComponent(computer)).then(() => {
+                        loadHardwareMenu(computer);
                     }).catch(() => {}); // do nothing in case of promise rejected
                     break;
                 }
                 case ComponentType.HDDDrive: {
-                    computer.addComponent(HDDDrive.addComponent()).then(() => {
-                        listComponents(computer);
+                    computer.addComponent(HDDDrive.addComponent(computer)).then(() => {
+                        loadHardwareMenu(computer);
                     }).catch(() => {}); // do nothing in case of promise rejected
                     break;
                 }
                 case ComponentType.SSDDrive: {
-                    computer.addComponent(SSDDrive.addComponent()).then(() => {
-                        listComponents(computer);
+                    computer.addComponent(SSDDrive.addComponent(computer)).then(() => {
+                        loadHardwareMenu(computer);
                     }).catch(() => {});
                     break;
                 }
                 case ComponentType.Mouse: {
-                    computer.addComponent(Mouse.addComponent()).then(() => {
-                        listComponents(computer);
+                    computer.addComponent(Mouse.addComponent(computer)).then(() => {
+                        loadHardwareMenu(computer);
                     }).catch(() => {});
                     break;
                 }
                 case ComponentType.Keyboard: {
-                    computer.addComponent(Keyboard.addComponent()).then(() => {
-                        listComponents(computer);
+                    computer.addComponent(Keyboard.addComponent(computer)).then(() => {
+                        loadHardwareMenu(computer);
                     }).catch(() => {});
                 }
             }

@@ -1,14 +1,13 @@
 import {HardwareAbstractComponent} from "../HardwareAbstractComponent";
 import {AddComponentDialog, FormFieldData} from "../../htmlElement/AddComponentDialog";
 import {ComponentType} from "../ComponentType";
+import {Computer} from "../../../Computer";
+import {AbstractDrive} from "./AbstractDrive";
 
-export class SSDDrive extends HardwareAbstractComponent {
-  private capacity: number;
-  private storage: number = 0;
+export class SSDDrive extends AbstractDrive {
 
-  constructor(name: string, capacity: number) {
-    super(name, ComponentType.SSDDrive);
-    this.capacity = capacity;
+  constructor(name: string, computer: Computer, capacity: number) {
+    super(name, ComponentType.SSDDrive, computer, capacity);
   }
 
   getCapacity() {
@@ -25,7 +24,7 @@ export class SSDDrive extends HardwareAbstractComponent {
         + "\nCapacity: " + this.getCapacity()
         + "\nActual Storage: " + this.getStorage();
   }
-  static async addComponent(): Promise<SSDDrive | null> {
+  static async addComponent(computer: Computer): Promise<SSDDrive | null> {
     const fields: FormFieldData[] = [
       { key: 'name', label: 'Component name', type: 'string', defaultValue: 'New disk' },
       { key: 'capacity', label: 'Capacity (GB)', type: 'number', defaultValue: 500 }
@@ -43,6 +42,6 @@ export class SSDDrive extends HardwareAbstractComponent {
       alert("Value have to be positive.");
       return null;
     }
-    return new SSDDrive(data.name, capacity);
+    return new SSDDrive(data.name, computer, capacity);
   }
 }
