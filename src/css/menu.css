@@ -4,6 +4,42 @@ body {
   font-family: Arial, sans-serif;
 }
 
+body.light-theme {
+  background-color: #f0f0f0; /* Jasne tło */
+  color: #333;              /* Ciemny tekst */
+}
+
+/* Zmiana tła dla wierszy komponentów */
+body.light-theme .component-row {
+  background-color: #ffffff; /* Białe tło wiersza */
+  border: 1px solid #ccc;
+}
+
+body.light-theme button {
+  background-color: #e0e0e0;
+  color: #333;
+  border: 1px solid #aaa;
+}
+
+body.light-theme button:hover {
+  background-color: #d8d8d8;
+}
+
+body.light-theme .modal-content,
+body.light-theme .select-modal-content {
+  background-color: #ffffff;
+  color: #333;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme .add-component-form input[type="text"],
+body.light-theme .add-component-form input[type="number"],
+body.light-theme .component-selector {
+  border: 1px solid #ccc;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
 .center-element {
   display: flex;
   justify-content: center;
@@ -27,7 +63,7 @@ body {
 .component-row {
   display: grid;
   width: auto;
-  grid-template-columns: 200px 1fr 120px 120px;
+  grid-template-columns: 200px 1fr 30px 150px 120px 120px;
   gap: 55px;
   padding: 10px;
   background-color: #333;
@@ -37,6 +73,61 @@ body {
 
 .grid-text {
   align-self: center;
+}
+
+.large-checkbox {
+  /* Wymuszamy na przeglądarce, aby zignorowała domyślny wygląd checkboxa */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Ustawiamy wymiary, aby mieć kontrolę nad polem */
+  width: 25px; /* Stała szerokość */
+  height: 25px; /* Stała wysokość */
+
+  /* Ustawienie pustego/niewidocznego stanu domyślnego */
+  background-color: transparent;
+  border: none;
+
+  /* Aby umożliwić pozycjonowanie zielonego znacznika wewnątrz (jeśli użyjesz pseudoelementu) */
+  position: relative;
+
+  /* Wyrównanie i skala (zostawiamy skalę dla dodatkowego powiększenia, jeśli chcesz) */
+  transform: scale(1.5);
+  display: inline-block;
+  margin: 5px;
+
+  /* Dodaj placeholder, aby widzieć pole, gdy jest puste */
+  /* border: 1px dashed #555; */
+}
+
+/* Stan: FALSE (Nieaktywny) */
+/* W tym stanie jest on praktycznie przezroczysty/niewidoczny */
+
+
+/* Stan: TRUE (Aktywny/Checked) */
+.large-checkbox:checked {
+  /* W tym stanie NIE chcemy zmieniać wyglądu samego INPUT, */
+  /* ale użyjemy pseudoelementu, aby wyświetlić znacznik. */
+  /* Możemy dodać obramowanie dla wizualnego wskazania, jeśli chcesz: */
+  /* border: 2px solid #4CAF50; */
+}
+
+/* Właściwy zielony znacznik */
+.large-checkbox:checked::before {
+  content: '✔'; /* Symbol znacznika */
+  color: #4CAF50; /* Czysta zieleń */
+  font-size: 20px; /* Rozmiar znacznika */
+
+  /* Pozycjonowanie na środku elementu */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Gwarantujemy, że znacznik jest widoczny */
+  display: block;
+  line-height: 1;
 }
 
 .component-actions {

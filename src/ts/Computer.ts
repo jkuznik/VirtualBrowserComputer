@@ -1,8 +1,9 @@
-import {HDDDrive} from "./components/hardDisk/HDDDrive";
-import {Mouse} from "./components/controllers/Mouse";
-import {HardwareAbstractComponent} from "./components/HardwareAbstractComponent";
-import {Keyboard} from "./components/controllers/Keyboard";
-import {Monitor} from "./components/monitor/Monitor";
+import {HardwareAbstractComponent} from "./hardware/components/HardwareAbstractComponent";
+import {HDDDrive} from "./hardware/components/hardDisk/HDDDrive";
+import {Mouse} from "./hardware/components/controllers/Mouse";
+import {Keyboard} from "./hardware/components/controllers/Keyboard";
+import {Monitor} from "./hardware/components/monitor/Monitor";
+import {MemoryGame} from "./software/file/executable/game/memoryGame/MemoryGame";
 
 export class Computer {
 
@@ -19,7 +20,7 @@ export class Computer {
         }
         if (component instanceof Monitor) {
             if (this.currentMonitors === Computer.MAX_MONITORS) {
-                console.error("Computer already have max amount of monitors")
+                alert("Computer already have max amount of monitors")
                 return;
             } else {
                 this.currentMonitors += 1;
@@ -51,10 +52,14 @@ export class Computer {
 export async function initialComputer(): Promise<Computer> {
     const computer  = new Computer();
 
-    const monitor = new Monitor("HP");
-    const hdd = new HDDDrive("Seagate Barracuda", 500);
-    const mouse = new Mouse("LogiTech", 8000);
-    const keyboard = new Keyboard("LogiTech");
+    const monitor = new Monitor("HP", computer).activate(true);
+    const hdd = new HDDDrive("Seagate Barracuda", computer, 500).activate(true);
+    const mouse = new Mouse("LogiTech", computer, 8000).activate(true);
+    const keyboard = new Keyboard("LogiTech", computer).activate(true);
+
+    const memoryGame = new MemoryGame(computer);
+
+    hdd.addFile(memoryGame);
 
     await computer.addComponent(Promise.resolve(monitor));
     await computer.addComponent(Promise.resolve(hdd));

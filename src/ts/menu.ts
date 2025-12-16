@@ -1,6 +1,7 @@
-import {Computer} from "./hardware/Computer";
+import {Computer} from "./Computer";
 
-import {listComponents} from "./hardware/hardwareMenu";
+import {loadHardwareMenu} from "./hardware/hardwareMenu";
+import {loadSoftwareMenu} from "./software/softwareMenu";
 
 export interface MenuButton {
   label: string;
@@ -9,15 +10,19 @@ export interface MenuButton {
 
 export function loadMainMenu(computer: Computer): void {
   refreshButtonVisibility([
-    { label: "Hardware", onClick: () => listComponents(computer) },
-    { label: "Software", onClick: () => alert("Software Menu is not implemented yet") }
+    { label: "Hardware", onClick: () => loadHardwareMenu(computer) },
+    { label: "Software", onClick: () => loadSoftwareMenu(computer) },
   ]);
 }
 
-function refreshButtonVisibility(buttons: MenuButton[]): void {
-  const app = document.getElementById('app');
+export function refreshButtonVisibility(buttons: MenuButton[]): void {
+  let app = document.getElementById('app');
+
   if (!app) {
-    throw new Error('No #app container found');
+    console.error("Critical: #app container not found! Re-creating in document.body.");
+    app = document.createElement('div');
+    app.id = 'app';
+    document.body.appendChild(app);
   }
 
   app.innerHTML = '';

@@ -1,10 +1,11 @@
 import {HardwareAbstractComponent} from "../HardwareAbstractComponent";
 import {ComponentType} from "../ComponentType";
 import {AddComponentDialog, FormFieldData} from "../../htmlElement/AddComponentDialog";
+import {Computer} from "../../../Computer";
 
 export class Keyboard extends HardwareAbstractComponent {
-    constructor(name: string) {
-        super(name, ComponentType.Keyboard);
+    constructor(name: string, computer: Computer) {
+        super(name, ComponentType.Keyboard, computer);
     }
 
     getInfo(): string {
@@ -12,7 +13,7 @@ export class Keyboard extends HardwareAbstractComponent {
             + "\nType: " + this.getType();
     }
 
-    static async addComponent(): Promise<Keyboard | null> {
+    static async addComponent(computer: Computer): Promise<Keyboard | null> {
         const fields: FormFieldData[] = [
             { key: 'name', label: 'Component name', type: 'string', defaultValue: 'New keyboard' }
         ];
@@ -23,6 +24,6 @@ export class Keyboard extends HardwareAbstractComponent {
         if (!data) {
             return null;
         }
-        return new Keyboard(data.name);
+        return new Keyboard(data.name, computer);
     }
 }
