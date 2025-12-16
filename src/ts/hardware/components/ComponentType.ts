@@ -1,6 +1,7 @@
 export enum ComponentType {
-    HDDDrive = 'HDD_DRIVE',
-    SSDDrive = 'SSD_DRIVE',
-    Mouse = 'MOUSE',
-    Keyboard = 'KEYBOARD',
+    Monitor = 'Monitor',
+    HDDDrive = 'HDD Drive',
+    SSDDrive = 'SSD Drive',
+    Mouse = 'Mouse',
+    Keyboard = 'Keyboard',
 }

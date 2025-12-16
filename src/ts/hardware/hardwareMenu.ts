@@ -5,6 +5,8 @@ import {ComponentTypeSelectDialog} from "./htmlElement/ComponentTypeSelectDialog
 import {ComponentType} from "./components/ComponentType";
 import {SSDDrive} from "./components/hardDisk/SSDDrive";
 import {Mouse} from "./components/controllers/Mouse";
+import {Keyboard} from "./components/controllers/Keyboard";
+import {Monitor} from "./components/monitor/Monitor";
 
 export function listComponents(computer: Computer) {
     const app = document.getElementById('app');
@@ -68,6 +70,12 @@ export function listComponents(computer: Computer) {
     addComponentButton.addEventListener("click", (event) => {
         new ComponentTypeSelectDialog().open().then(result => {
             switch (result) {
+                case ComponentType.Monitor: {
+                    computer.addComponent(Monitor.addComponent()).then(() => {
+                        listComponents(computer);
+                    }).catch(() => {}); // do nothing in case of promise rejected
+                    break;
+                }
                 case ComponentType.HDDDrive: {
                     computer.addComponent(HDDDrive.addComponent()).then(() => {
                         listComponents(computer);
@@ -85,6 +93,11 @@ export function listComponents(computer: Computer) {
                         listComponents(computer);
                     }).catch(() => {});
                     break;
+                }
+                case ComponentType.Keyboard: {
+                    computer.addComponent(Keyboard.addComponent()).then(() => {
+                        listComponents(computer);
+                    }).catch(() => {});
                 }
             }
         })
