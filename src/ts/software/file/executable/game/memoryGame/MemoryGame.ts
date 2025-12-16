@@ -12,7 +12,7 @@ export class MemoryGame extends AbstractFile {
     static readonly TYPE: FileType = FileType.EXE;
     static readonly SIZE = 256;
 
-    private appContainer: HTMLElement;
+    private appContainer: HTMLElement = document.body;
 
     private boardElement: HTMLDivElement | null = null;
     private cards: Card[] = [];
