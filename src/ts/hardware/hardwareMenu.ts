@@ -5,6 +5,7 @@ import {ComponentTypeSelectDialog} from "./htmlElement/ComponentTypeSelectDialog
 import {ComponentType} from "./components/ComponentType";
 import {SSDDrive} from "./components/hardDisk/SSDDrive";
 import {Mouse} from "./components/controllers/Mouse";
+import {Keyboard} from "./components/controllers/Keyboard";
 
 export function listComponents(computer: Computer) {
     const app = document.getElementById('app');
@@ -85,6 +86,11 @@ export function listComponents(computer: Computer) {
                         listComponents(computer);
                     }).catch(() => {});
                     break;
+                }
+                case ComponentType.Keyboard: {
+                    computer.addComponent(Keyboard.addComponent()).then(() => {
+                        listComponents(computer);
+                    }).catch(() => {});
                 }
             }
         })
