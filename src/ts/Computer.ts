@@ -52,7 +52,7 @@ export class Computer {
 export async function initialComputer(): Promise<Computer> {
     const computer  = new Computer();
 
-    const monitor = new Monitor("HP", computer).activate(true);
+    const monitor = new Monitor("", computer).activate(true);
     const hdd = new HDDDrive("Seagate Barracuda", computer, 500).activate(true);
     const mouse = new Mouse("LogiTech", computer, 8000).activate(true);
     const keyboard = new Keyboard("LogiTech", computer).activate(true);
